@@ -1,0 +1,322 @@
+<section class="" *ngIf="project">
+    <h2 class="text-xl font-bold">{{ project.name }}</h2>
+    <p class=""><span class="font-semibold">Description: </span>{{ project.description }}</p>
+    <p class=""><span class="font-semibold">Start date: </span>{{ project.startDate }}</p>
+    <p class=""><span class="font-semibold">End date: </span>{{ project.endDate }}</p>
+    <p class=""><span class="font-semibold">Budget: </span>{{ project.budget | currency }}</p>
+    <p class=""><span class="font-semibold">Progress: </span>{{ project.completionPercentage }}</p>
+    <p class=""><span class="font-semibold">Creator: </span>{{ project.creator.username }}</p>
+    <button type="button" class="border border-emerald-400 px-2 py-1">Create task?</button>
+
+    <section>
+        <h3>Create form</h3>
+        <form (ngSubmit)="onSubmitCreateTask(newTaskForm)" #newTaskForm="ngForm" 
+        
+        >
+            <div class="flex flex-col">
+                <label for="taskId" class="font-semibold">Task id</label>
+                <input 
+                    type="number" 
+                    id="taskId" 
+                    name="taskId" 
+                    [(ngModel)]="task.id" 
+                    required="true"
+                    class="border p-2 rounded"
+                >
+            </div>
+            <div class="flex flex-col">
+                <label for="title" class="font-semibold">Title</label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    [(ngModel)]="task.title" 
+                    required="true"
+                    class="border p-2 rounded"
+                >
+            </div>
+            <div class="flex flex-col">
+                <label for="description" class="font-semibold">Description</label>
+                <textarea 
+                    id="description" 
+                    name="description" 
+                    [(ngModel)]="task.description" 
+                    required 
+                    class="border p-2 rounded"
+                    rows="3"
+                ></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="taskStatus" class="font-semibold">Status</label>
+                <select 
+                    id="taskStatus" 
+                    name="taskStatus" 
+                    [(ngModel)]="task.taskStatus" 
+                    required 
+                    class="border p-2 rounded"
+                >
+                    <option value="TODO">Todo</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="dueDate" class="font-semibold">Due Date</label>
+                <input 
+                    type="datetime-local" 
+                    id="dueDate" 
+                    name="dueDate" 
+                    [(ngModel)]="task.dueDate" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="projectId" class="font-semibold">Project id</label>
+                <input 
+                    type="number" 
+                    id="projectId" 
+                    name="projectId" 
+                    [(ngModel)]="task.projectId" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="projectName" class="font-semibold">Project name</label>
+                <input 
+                    type="text" 
+                    id="projectName" 
+                    name="projectName" 
+                    [(ngModel)]="task.projectName" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="assigneeId" class="font-semibold">Assignee id</label>
+                <input 
+                    type="number" 
+                    id="assigneeId" 
+                    name="assigneeId" 
+                    [(ngModel)]="task.assigneeId" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="assigneeId" class="font-semibold">Assignee name</label>
+                <select 
+                    id="assigneeName" 
+                    name="assigneeName" 
+                    [(ngModel)]="task.assigneeName" 
+                    required 
+                    class="border p-2 rounded"
+                >
+                    <option [value]="member.username" *ngFor="let member of project.members">
+                        {{member.username}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="flex gap-2">
+                <button 
+                    type="submit" 
+                    class="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-300 hover:bg-blue-600"
+                >
+                    Save Changes
+                </button>
+                <button 
+                    type="button"
+                    (click)="cancelUpdate()"
+                    class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                >
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <section *ngIf="project.tasks && project.tasks.length > 0" class="pl-8 mt-4">
+        <h3 class="text-lg font-bold mb-2">Tasks</h3>
+        <ul *ngFor="let task of project.tasks" >
+            <li class="">
+                <section class="flex justify-between items-start mb-2">
+                    <section>
+                        <h4 class="font-semibold text-lg">{{task.title}}</h4>
+                        <p class="text-gray-700">{{task.description}}</p>
+                        <div class="mt-2 grid grid-cols-2 gap-2 text-sm">
+                            <p><span class="font-semibold">Status: </span>{{task.taskStatus}}</p>
+                            <p><span class="font-semibold">Due Date: </span>{{task.dueDate}}</p>
+                            <p><span class="font-semibold">Assignee: </span>{{task.assigneeName}}</p>
+                        </div>
+                    </section>
+                    <section class="flex gap-2">
+                        <button 
+                            (click)="selectTaskForUpdate(task)"
+                            class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                        >
+                            Update
+                        </button>
+                        <button 
+                            (click)="deleteTask(task.id!)"
+                            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                        >
+                            Delete
+                        </button>
+                    </section>
+                </section>
+
+                <!-- SECTION WITH FORM WAS HERE -->
+            </li>
+        </ul> 
+    </section>
+
+    <section *ngIf="selectedTaskId === task.id" class="mt-4 bg-gray-200 p-4 rounded">
+        <h4 class="font-semibold mb-4">Update Task</h4>
+
+        <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm" class="space-y-4"
+        >
+            <div class="flex flex-col">
+                <label for="title" class="font-semibold">Title</label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    name="title" 
+                    [(ngModel)]="task.title" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="description" class="font-semibold">Description</label>
+                <textarea 
+                    id="description" 
+                    name="description" 
+                    [(ngModel)]="task.description" 
+                    required 
+                    class="border p-2 rounded"
+                    rows="3"
+                ></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="taskStatus" class="font-semibold">Status</label>
+                <select 
+                    id="taskStatus" 
+                    name="taskStatus" 
+                    [(ngModel)]="task.taskStatus" 
+                    required 
+                    class="border p-2 rounded"
+                >
+                    <option value="TODO">Todo</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="dueDate" class="font-semibold">Due Date</label>
+                <input 
+                    type="datetime-local" 
+                    id="dueDate" 
+                    name="dueDate" 
+                    [(ngModel)]="task.dueDate" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="projectId" class="font-semibold">Project id</label>
+                <input 
+                    type="number" 
+                    id="projectId" 
+                    name="projectId" 
+                    [(ngModel)]="task.projectId" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="projectName" class="font-semibold">Project id</label>
+                <input 
+                    type="text" 
+                    id="projectName" 
+                    name="projectName" 
+                    [(ngModel)]="task.projectName" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="assigneeId" class="font-semibold">Assignee id</label>
+                <input 
+                    type="number" 
+                    id="assigneeId" 
+                    name="assigneeId" 
+                    [(ngModel)]="task.assigneeId" 
+                    required 
+                    class="border p-2 rounded"
+                >
+            </div>
+
+            <div class="flex flex-col">
+                <label for="assigneeId" class="font-semibold">Assignee name</label>
+                <select 
+                    id="assigneeName" 
+                    name="assigneeName" 
+                    [(ngModel)]="task.assigneeName" 
+                    required 
+                    class="border p-2 rounded"
+                >
+                    <option [value]="member.username" *ngFor="let member of project.members">
+                        {{member.username}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="flex gap-2">
+                <button 
+                    type="submit" 
+                    [disabled]="!taskForm.valid"     
+                    class="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-300 hover:bg-blue-600"
+                >
+                    Save Changes
+                </button>
+                <button 
+                    type="button"
+                    (click)="cancelUpdate()"
+                    class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                >
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+
+    
+    <section *ngIf="project.members && project.members.length > 0" class="mt-8 pl-8">
+        <h3 class="text-lg font-bold">Team Members</h3>
+        <ul *ngFor="let member of project.members" >
+            <li><a href=""><span class="font-semibold">Member username: </span>{{member.username}}</a></li>
+            <li><a href=""><span class="font-semibold">Member email: </span>{{member.email}}</a></li>
+        </ul> 
+    </section>
+
+
+</section>
+
+
+<a href="/user/dashboard" class="block mt-8">Go to dashboard</a>

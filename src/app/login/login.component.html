@@ -1,0 +1,65 @@
+<main class="bg-emerald-950 flex items-center justify-center h-screen">
+    <section class="w-full max-w-xs bg-white px-8 pt-4 pb-6 rounded-lg outline-none border-none">
+        <figure class="mx-auto w-7/12">
+            <img src="/flox-logo.png" alt="" class="h-full w-full">
+        </figure>
+        <h2 class="text-base text-gray-800 text-center tracking-widest">Te damos la bienvenida</h2>
+        <form (ngSubmit)="login()" class="">
+            <fieldset class="mt-2">
+                <legend class="text-center text-sm text-gray-500">Start by logging in</legend>
+
+                <!-- <div class="mb-4 "></div> -->
+                    <label class="mt-4 block text-gray-700 font-bold" for="email"></label>
+                    <input class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm
+                    leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" 
+                    id="email" 
+                    type="email" 
+                    placeholder="Enter your email"
+                    aria-label="Email address"
+                    name="email"
+                    [(ngModel)]="credentials.email"
+                    required
+                    >
+                
+    
+                <!-- <div class="mb-6"></div> -->
+                    <label class="mt-4 block text-gray-700 text-sm font-bold" for="password"></label>
+                    <input class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm
+                    leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" 
+                    id="password" 
+                    type="password" 
+                    placeholder="Enter your password"
+                    aria-label="password"
+                    name="password"
+                    [(ngModel)]="credentials.password"
+                    required
+                    >
+                
+    
+                <!-- <div class="mb-2 flex flex-col items-center justify-between gap-4"></div> -->
+                    <button class="block mt-2 py-1 px-14 block mt-4 mx-auto
+                    bg-gray-500 rounded text-white font-bold 
+                    hover:bg-emerald-800 active:bg-emerald-900 focus:outline-none focus:shadow-outline transition-all duration-150 ease-in-out" 
+                    type="submit">
+                        Continue
+                    </button>
+            </fieldset>
+            
+
+            <p class="mt-1 text-center">or</p>
+
+            <a href="" class="my-2 flex items-center border px-3 py-2 rounded justify-center gap-2 shadow appearance-none 
+            hover:bg-emerald-800 hover:text-white active:bg-emerald-900 transition-all duration-150 ease-in-out" >
+                <figure class="w-4 h-4">
+                    <img src="/google_logo.png" alt="" class="h-full w-full">
+                </figure>
+                <span class="text-sm">Continue with Google</span>
+            </a>
+
+            <a class="block mt-4 flex justify-center gap-1 text-sm text-center" href="/register">
+                <span class="">Don't have an account, </span>
+                <span class="text-emerald-800 hover:text-emerald-600 active:text-emerald-500 underline">Register</span>
+            </a>
+        </form>
+    </section>
+</main> 

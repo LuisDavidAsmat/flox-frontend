@@ -1,0 +1,55 @@
+<app-header/>
+<main class="min-h-screen flex gap-1">
+  <app-sidebar/>
+  <section class="w-full pl-3 pr-10">    
+    <header class=" w-full flex justify-between ">
+      <h2 class="text-emerald-700 text-xl font-bold">Mis proyectos</h2>
+      <a href="/user/new-project" class="py-1 px-2 flex items-center bg-emerald-800 rounded-md text-white text-sm">
+        <svg class='h-5 w-5 fill-current' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 12h6V6h1v6h6v1h-6v6h-1v-6H6z"/><path fill="none" d="M0 0h24v24H0z"/></svg>
+        <span>Crear un proyecto</span>
+      </a>
+    </header>
+
+    <p *ngIf="!hasProjects">No hay proyectos, Empieza por crear uno!</p>
+
+    <table *ngIf="hasProjects" class="w-full mt-4 text-center shadow-lg border border-emerald-800">
+      <thead class="border border-emerald-800">
+        <tr class="bg-emerald-100 text-sm font-medium ">
+          <th >Project</th>
+          <th >Description</th>
+          <th >Start Date</th>
+          <th >End Date</th>
+          <th >Budget</th>
+          <th >Progress (%)</th>
+          <th >Creator</th>
+          <th >Update</th>
+          <th >Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projects" 
+        class="text-sm  hover:bg-emerald-50"
+        >
+          <td><a href="/project/{{project.id}}">{{ project.name }} </a></td>
+          <td>{{ project.description }}</td>
+          <td>{{ project.startDate }}</td>
+          <td>{{ project.endDate }}</td>
+          <td>{{ project.budget | currency }}</td>
+          <td>{{ project.completionPercentage }}</td>
+          <td>{{ project.creatorName }}</td>
+          <td><a href="/project/update/{{project.id}}">Update</a></td>
+          <td>
+            <button (click)="deleteProject(project.id)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- <app-tickets-summary/> -->
+       
+  </section>
+
+</main>
+<div class="text-blue-gray-600">
+  <app-footer/>
+</div>

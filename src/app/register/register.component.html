@@ -1,0 +1,118 @@
+<!-- <app-form
+    [welcomeText]="'Te damos la bienvenida'"
+    [instructionText]="'Para comenzar, crea tu cuenta'"
+    [buttonText]="'Continuar'"
+    [footerText]="'Si ya tienes una cuenta, '"
+    [footerAction]="'Inicia sesión'"
+    [footerActionHRef]="'/'"
+>
+<div class="mb-4 ">
+    <label class="block text-gray-700  font-bold mb-2" for="username"></label>
+    <input 
+    class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm
+    leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" 
+    id="username" 
+    type="text" 
+    aria-label="Username"
+    placeholder="Ingresa tu nombre de usuario"
+    >
+</div>
+
+
+
+<div class="mb-4">
+    <label class="block text-gray-700 font-bold mb-2" for="userRole">Rol de Usuario</label> 
+    <select class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" id="userRole" formControlName="userRole"> 
+        <option value="ROLE_ADMIN">Administrador</option> 
+        <option value="ROLE_USER">Usuario</option> 
+    </select>
+</div>
+
+</app-form> -->
+
+
+<main class="bg-emerald-950 flex items-center justify-center h-screen">
+    <section class="w-full max-w-sm bg-white p-8 rounded-lg">
+        <figure class="mx-auto w-7/12">
+            <img src="/flox-logo.png" alt="" class="h-full w-full">
+        </figure>
+        <h2 class="text-base mb-6 text-gray-800 text-center tracking-widest">Te damos la bienvenida</h2>
+        <form (ngSubmit)="register()" class="">
+
+            <p class="text-center text-sm mb-4 text-gray-500">Para comenzar, crea tu cuenta</p>
+
+            <div class="mb-4 ">
+                <label class="block text-gray-700  font-bold mb-2" for="email"></label>
+                <input class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm
+                leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" 
+                id="email" 
+                type="email" 
+                placeholder="Ingresa tu correo electrónico"
+                aria-label="Email address"
+                name="email"
+                [(ngModel)]="user.email"
+                >
+            </div>
+
+            <div class="mb-4 ">
+                <label class="block text-gray-700  font-bold mb-2" for="username"></label>
+                <input class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm
+                leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" 
+                id="username" 
+                type="text" 
+                placeholder="Ingresa tu nombre de usuario"
+                aria-label="Username"
+                name="username"
+                [(ngModel)]="user.username"
+                >
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password"></label>
+                <input class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm
+                leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" 
+                id="password" 
+                type="password" 
+                placeholder="Ingresa tu contraseña"
+                aria-label="password"
+                name="password"
+                [(ngModel)]="user.password"
+                >
+            </div>
+
+            <div class="mb-4"> 
+                <label class="block text-gray-700 font-bold mb-2" for="userRole">Rol de Usuario</label> 
+                <select class="w-full py-2 px-3 shadow appearance-none border rounded text-gray-700 text-center text-sm leading-tight focus:outline-none focus:shadow-outline focus:ring-1 focus:border-emerald-500" 
+                id="userRole"
+                name="userRole"
+                [(ngModel)]="user.userRole"
+                > 
+                    <option value="ROLE_ADMIN">Administrador</option> 
+                    <option value="ROLE_USER">Usuario</option> 
+                </select> 
+            </div>
+
+            <div class="mb-4 flex flex-col items-center justify-between gap-4">
+                <button class="py-1 px-14 bg-gray-500 rounded text-white font-bold 
+                hover:bg-emerald-800 active:bg-emerald-900 focus:outline-none focus:shadow-outline transition-all duration-150 ease-in-out" type="submit">
+                    Continuar
+                </button>
+            </div>
+
+            <p class="mb-2 text-center">o</p>
+
+            <a href="" class="mb-6 flex items-center border px-3 py-2 rounded justify-center gap-2 shadow appearance-none 
+            hover:bg-emerald-800 hover:text-white active:bg-emerald-900 transition-all duration-150 ease-in-out" >
+                <figure class="w-4 h-4">
+                    <img src="/google_logo.png" alt="" class="h-full w-full">
+                </figure>
+                <span class="text-sm">Continuar con Google</span>
+            </a>
+
+            <a class="flex justify-center gap-1 text-sm text-center" href="/">
+                <span class="">Si ya tienes una cuenta, </span>
+                <span class="text-emerald-800 hover:text-emerald-600 active:text-emerald-500 underline">Inicia sesión</span>
+            </a>
+        </form>
+    </section>
+</main> 

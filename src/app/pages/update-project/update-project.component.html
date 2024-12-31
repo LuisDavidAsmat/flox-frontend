@@ -1,0 +1,127 @@
+<main>
+    <form (ngSubmit)="onSubmit(projectForm)" #projectForm="ngForm" class="mt-8">
+      <h2 class="text-2xl font-semibold">Project Info</h2>
+      <div class="flex items-center gap-2 mt-4">
+        <label for="projectName" class="">Name:</label>
+        <input type="text" id="projectName" [(ngModel)]="project.name" name="projectName" required
+          class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500"
+          placeholder="Project name">
+      </div>
+
+      <div class="flex items-center gap-2">
+        <label for="projectDescription" class="">Description:</label>
+        <input type="text" id="projectDescription" [(ngModel)]="project.description" name="projectDescription" required
+          class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500"
+          placeholder="Project description">
+      </div>    
+
+      <div class="flex items-center gap-2">
+        <label for="projectStartDate">Start Date:</label>
+        <input type="datetime-local" id="projectStartDate" [(ngModel)]="project.startDate" name="projectStartDate" required
+        class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Project name"
+        >
+      </div>
+    
+      <div class="flex items-center gap-2">
+        <label for="projectEndDate">End Date:</label>
+        <input type="datetime-local" id="projectEndDate" [(ngModel)]="project.endDate" name="projectEndDate" required
+        class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Project name"
+        >
+      </div>
+    
+      <div class="flex items-center gap-2">
+        <label for="projectBudget">Budget:</label>
+        <input type="number" id="projectBudget" [(ngModel)]="project.budget" name="projectBudget" required
+        class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Project name"
+        >
+      </div>
+    
+      <div class="flex items-center gap-2">
+        <label for="completionPercentage">Completion Percentage:</label>
+        <input type="number" id="completionPercentage" [(ngModel)]="project.completionPercentage" name="completionPercentage" required
+        class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Project name"
+        >
+      </div>
+      
+
+      <div>
+        <label for="creatorUserId">Creator Username:</label>
+        <input type="number" id="creatorUserId" [(ngModel)]="project.creator.userId"
+        name="creatorUserId" required
+        class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Project name"
+        >
+      </div>
+    
+      <div>
+        <label for="creatorUsername">Creator Username:</label>
+        <input type="text" id="creatorUsername" [(ngModel)]="project.creator.username"
+        name="creatorUsername" required
+        class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Project name"
+        >
+      </div>
+
+
+      <div class="mt-4" *ngIf="project.tasks && project.tasks.length > 0">
+        <h3 class="text-lg font-semibold mb-2">Tasks</h3>
+         <section *ngFor="let task of project?.tasks; let i = index">
+          <div class="">
+            <label for="taskTitle">Task Title:</label>
+            <input type="text" id="taskTitle" [(ngModel)]="project.tasks[i].title" name="taskTitle" required
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Task name"
+            > 
+          </div>
+          <div class="">
+            <label for="taskDescription">Task description:</label>
+            <input type="text" id="taskDescription" [(ngModel)]="project.tasks[i].description" name="taskDescription" required
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Task name"
+            > 
+          </div>
+          <div class="">
+            <label for="taskStatus">Task Status:</label>
+            <input type="text" id="taskStatus" [(ngModel)]="project.tasks[i].taskStatus" name="taskStatus" required
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Task name"
+            > 
+          </div>
+          <div class="">
+            <label for="taskDueDate">Task description:</label>
+            <input type="text" id="taskDueDate" [(ngModel)]="project.tasks[i].dueDate" name="taskDueDate" required
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Task name"
+            > 
+          </div>
+        </section> 
+
+      </div>
+
+      <div class="mt-4" *ngIf="project.members && project.members.length > 0">
+        <h3 class="text-lg font-semibold mb-2">Members</h3>
+         <section *ngFor="let member of project?.members; let i = index">
+          <div class="">
+            <label for="memberId">Member Id:</label>
+            <input type="text" id="memberId" [(ngModel)]="project.members[i].userId" name="memberId" required
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Task name"
+            > 
+          </div>
+          <div class="">
+            <label for="memberUsername">Member username:</label>
+            <input type="text" id="memberId" [(ngModel)]="project.members[i].username" name="memberUsername" required
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Task name"
+            > 
+          </div>
+
+          <div class="">
+            <label for="memberEmail">Member email:</label>
+            <input type="text" id="memberEmail" [(ngModel)]="project.members[i].email" name="memberEmail" required
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-1 focus:ring-blue-500  " placeholder="Task name"
+            > 
+          </div>
+          
+          
+        </section> 
+
+      </div>
+          
+      <button type="submit"
+        class="p-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm">Update Project</button>
+    </form>
+</main>
+  
